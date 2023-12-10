@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+    }
+
+    #container {
+      height: 100vh;
+      width: 100%;
+      background-image: url("./picture/background.jpg");
+      background-size: cover;
+      transition: background-image 0.5s ease;
+    }
+
+    #clock {
+      width: 300px;
+      height: 300px;
+      backdrop-filter: blur(5px);
+      border: 10px solid rgba(0, 0, 0, 0.5);
+      margin: auto;
+      border-radius: 50%;
+      position: relative;
+      top: calc(50% - 300px);
+    }
+
+    #hour {
+      width: 20%;
+      height: 10px;
+      background: rgba(0, 225, 225, 0.5);
+      position: absolute;
+      top: calc(50% - 5px);
+      left: 30%;
+      border-radius: 5px;
+      transform-origin: right center;
+    }
+
+    #minute {
+      width: 40%;
+      height: 10px;
+      background: rgba(138, 43, 226, 0.5);
+      position: absolute;
+      top: calc(50% - 5px);
+      left: 10%;
+      border-radius: 5px;
+      transform-origin: right center;
+    }
+
+    #second {
+      width: 45%;
+      height: 6px;
+      background: rgba(127, 255, 0, 0.5);
+      position: absolute;
+      top: calc(50% - 3px);
+      left: 5%;
+      border-radius: 3px;
+      transform-origin: right center;
+    }
+
+    #dot {
+      width: 15px;
+      height: 15px;
+      background: rgba(0, 0, 0, 0.5);
+      ;
+      border-radius: 50%;
+      top: 48%;
+      left: 47%;
+      position: absolute;
+      z-index: 1;
+    }
+
+    #text {
+      color: white;
+      text-align: center;
+      top: -3%;
+      left: -16%;
+      position: absolute;
+      width: 100%;
+      font-size: 100px;
+      z-index: 2;
+      font-family: cursive;
+    }
+
+    #radio {
+      position: relative;
+      margin: auto;
+      top: calc(50% + 200px);
+      left: -20%;
+      width: 400px;
+    }
+
+    #botan {
+      width: 35px;
+      height: 35px;
+      background: green;
+      position: absolute;
+      top: 68%;
+      left: 56%;
+      border-radius: 50%;
+    }
+
+    #stop {
+      width: 35px;
+      height: 35px;
+      background: blue;
+      position: absolute;
+      top: 68%;
+      left: 73%;
+      border-radius: 50%;
+    }
+
+    #box {
+      width: 121px;
+      height: 52px;
+      background: black;
+      color: white;
+      position: absolute;
+      top: 42%;
+      left: 54%;
+      border-radius: 8px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    #box h2 {
+      overflow: hidden;
+      white-space: nowrap;
+      animation: marquee 10s linear infinite;
+      font-size: 16px;
+      display: inline-block;
+
+    }
+
+    #box h2.marquee {
+      animation-play-state: running;
+    }
+
+    @keyframes marquee {
+      0% {
+        transform: translateX(100%);
+      }
+
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    #box2 {
+      background: gray;
+      display: inline-block;
+      color: white;
+      top: 82%;
+      left: 56%;
+      position: absolute;
+    }
+
+    #box3 {
+      background: gray;
+      display: inline-block;
+      color: white;
+      top: 82%;
+      left: 73%;
+      position: absolute;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <div id="clock">
+      <div id="dot"></div>
+      <div id="hour"></div>
+      <div id="minute"></div>
+      <div id="second"></div>
+      <p id="text">00:00:00</p>
+      <div id="radio">
+        <img src="./radio.png" width="400px">
+        <button id="botan" type="button" onclick="playNext(),changeBackground()"></button>
+        <button id="stop" type="buttton" onclick="stopMusic()"></button>
+        <div id="box">
+          <h2 id="currentSong">音樂播放器</h2>
+        </div>
+        <div id="box2">播 放</div>
+        <div id="box3">停 止</div>
+      </div>
+    </div>
+
+
+  </div>
+
+
+
+  <script>
+    const elHour = document.getElementById('hour')
+    const elMinute = document.getElementById('minute')
+    const elSecond = document.getElementById('second')
+    const elText = document.getElementById('text')
+
+    const clock = () => {
+      const date = new Date()
+      const hour = date.getHours()
+      const minute = date.getMinutes()
+      const second = date.getSeconds()
+
+
+      elHour.style.transform = `rotate(${hour * 30 + 90}deg)`
+      elMinute.style.transform = `rotate(${minute * 6 + 90}deg)`
+      elSecond.style.transform = `rotate(${second * 6 + 90}deg)`
+      elText.innerText = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}:${second.toString().padStart(2, '0')}`
+    }
+    setInterval(clock, 1000)
+    clock()
+
+    let musicIndex = 0;
+    let musicList = [
+      { title: "秋づく季節へ 移りゆく景色にときめく和風曲", source: "./music/01.AkidukuKisetue.mp3", backgroundImage: "./picture/01. 秋づく季節へ 移りゆく景色にときめく和風曲.jpg", color: "orange", border: "10px solid rgba(255,165,0,0.5)" },
+      { title: "お正月に合う和風BGM", source: "./music/02.Hannari.mp3", backgroundImage: "./picture/02. お正月に合う和風BGM.jpg", color: "red", border: "10px solid rgba(255,0,0,0.5)" },
+      { title: "丑三つ時の和都 夜の環境音で癒される琴と尺八の和風曲", source: "./music/03.UshimitsudokinoWamiyako.mp3", backgroundImage: "./picture/03. 丑三つ時の和都 夜の環境音で癒される琴と尺八の和風曲.jpg", color: "blue", border: "10px solid  rgba(0,0,255,0.5)" }
+    ];
+
+    let audio = new Audio();
+    audio.addEventListener('ended', function () {
+      audio.currectTime = 0;
+      audio.play();
+    });
+
+    function playMusic(index) {
+      let selectedMusic = musicList[index];
+      audio.src = selectedMusic.source;
+      audio.play();
+      document.getElementById("currentSong").textContent = "正在播放：" + selectedMusic.title;
+    }
+
+    function playNext() {
+      audio.pause();
+      musicIndex = (musicIndex + 1) % musicList.length;
+      playMusic(musicIndex);
+      changeBackground();
+    }
+
+    function stopMusic() {
+      audio.pause();
+      audio.currentTime = 0;
+    }
+    function changeBackground() {
+      let selectedMusic = musicList[musicIndex];
+      document.getElementById("container").style.backgroundImage = `url('${selectedMusic.backgroundImage}')`;
+      document.getElementById("text").style.color = selectedMusic.color;
+      document.getElementById("clock").style.border = selectedMusic.border;
+
+    }
+  </script>
+</body>
+
+</html>
