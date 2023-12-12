@@ -75,7 +75,7 @@
     }
 
     #text {
-      color: white;
+      color: rgb(255, 255, 255, 0.5);
       text-align: center;
       top: -3%;
       left: -17%;
@@ -84,6 +84,7 @@
       font-size: 100px;
       z-index: 2;
       font-family: cursive;
+      text-shadow: 0 0 5px rgb(255, 255, 255), 0 0 15px rgb(255, 255, 255)
     }
 
     #radio {
@@ -218,9 +219,13 @@
 
     let musicIndex = 0;
     let musicList = [
-      { title: "秋づく季節へ 移りゆく景色にときめく和風曲", source: "./music/01.AkidukuKisetue.mp3", backgroundImage: "./picture/01. 秋づく季節へ 移りゆく景色にときめく和風曲.jpg", color: "orange", border: "10px solid rgba(255,165,0,0.5)", background: "rgba(255,165,0,0.5)" },
-      { title: "お正月に合う和風BGM", source: "./music/02.Hannari.mp3", backgroundImage: "./picture/02. お正月に合う和風BGM.jpg", color: "red", border: "10px solid rgba(255,0,0,0.5)", background: "rgba(255,0,0,0.5)" },
-      { title: "丑三つ時の和都 夜の環境音で癒される琴と尺八の和風曲", source: "./music/03.UshimitsudokinoWamiyako.mp3", backgroundImage: "./picture/03. 丑三つ時の和都 夜の環境音で癒される琴と尺八の和風曲.jpg", color: "blue", border: "10px solid  rgba(0,0,255,0.5)", background: "rgba(0,0,255,0.5)" }
+      {
+        title: "秋づく季節へ 移りゆく景色にときめく和風曲", source: "./music/01.AkidukuKisetue.mp3", backgroundImage: "./picture/01. 秋づく季節へ 移りゆく景色にときめく和風曲.jpg", border: "10px solid rgba(255,165,0,0.5)", background: "rgba(255,165,0,0.5)", textShadow: "0 0 5px rgb(255,165,0), 0 0 15px rgb(255,165,0)"
+      },
+      {
+        title: "お正月に合う和風BGM", source: "./music/02.Hannari.mp3", backgroundImage: "./picture/02. お正月に合う和風BGM.jpg", border: "10px solid rgba(255,0,0,0.5)", background: "rgba(255,0,0,0.5)", textShadow: "0 0 5px rgb(255,0,0,0.5), 0 0 15px rgb(255,0,0,0.5)"
+      },
+      { title: "丑三つ時の和都 夜の環境音で癒される琴と尺八の和風曲", source: "./music/03.UshimitsudokinoWamiyako.mp3", backgroundImage: "./picture/03. 丑三つ時の和都 夜の環境音で癒される琴と尺八の和風曲.jpg", border: "10px solid  rgba(0,0,255,0.5)", background: "rgba(0,0,255,0.5)", textShadow: "0 0 5px rgb(0,0,255,0.5), 0 0 15px rgb(0,0,255,0.5)" }
     ];
 
     let audio = new Audio();
@@ -250,10 +255,9 @@
     function changeBackground() {
       let selectedMusic = musicList[musicIndex];
       document.getElementById("container").style.backgroundImage = `url('${selectedMusic.backgroundImage}')`;
-      document.getElementById("text").style.color = selectedMusic.color;
       document.getElementById("clock").style.border = selectedMusic.border;
       document.getElementById("dot").style.background = selectedMusic.background;
-
+      document.getElementById("text").style.textShadow = selectedMusic.textShadow;
     }
   </script>
 </body>
